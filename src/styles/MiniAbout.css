@@ -1,0 +1,89 @@
+.mini-about {
+  background-color: #f4faff;
+  height: 45vh;
+  max-width: 100vw;
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping for responsiveness */
+}
+
+.text-display {
+  text-align: center;
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.image-display {
+  height: 45vh;
+  flex: 2;
+  background-image: url("/Tech-background.jpg");
+  background-size: cover; /* Ensures image covers the section */
+  background-position: center; /* Centers the image */
+}
+
+/* Button styling */
+.button-18 {
+  align-items: center;
+  background-color: #0092d5;
+  border-radius: 100px;
+  display: inline-block;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  color: white;
+}
+
+.button-18:hover {
+  background-color: #f4faff;
+  color: #008ac9;
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .mini-about {
+    flex-direction: column; /* Stacks the text and image vertically */
+    height: auto; /* Adjust height for content */
+  }
+
+  .text-display {
+    margin: 20px;
+  }
+
+  .image-display {
+    height: 30vh; /* Adjust image height for smaller screens */
+  }
+
+  .button-18 {
+    width: 80%; /* Makes the button scale on smaller screens */
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .mini-about {
+    padding: 10px; /* Add some padding for smaller screens */
+  }
+
+  .text-display {
+    margin: 10px;
+  }
+
+  .image-display {
+    height: 25vh; /* Further reduce image height for very small screens */
+  }
+
+  .button-18 {
+    font-size: 14px; /* Adjust font size for readability */
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}

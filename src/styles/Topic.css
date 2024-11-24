@@ -1,0 +1,39 @@
+.topic {
+    text-align: center;
+}
+
+.material {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 20px;
+  width: 100%; /* Ensure the material container takes full width */
+}
+
+.material iframe {
+  width: 80%; /* Take 80% of the screen width */
+  max-width: 560px; /* Set a reasonable maximum width */
+  aspect-ratio: 16 / 9; /* Maintain the aspect ratio */
+  border: none; /* Remove iframe borders */
+}
+
+.material-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center-align items */
+}
+
+@media screen and (max-width: 768px) {
+  .material iframe {
+    width: 90%; /* Adjust for smaller screens */
+    max-width: none; /* Allow it to scale */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .material iframe {
+    width: 100%; /* Take the full width on very small screens */
+  }
+}
