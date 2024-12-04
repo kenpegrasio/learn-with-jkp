@@ -13,9 +13,9 @@ function Logout() {
   };
 
   return (
-    <div id="signOutButton">
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <button onClick={handleLogout} class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+      Logout
+    </button>
   );
 }
 

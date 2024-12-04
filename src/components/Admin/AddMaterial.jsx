@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../UserContextProvider";
 import { SubjectContext } from "../../SubjectContextProvider";
 import axios from "axios";
-import "../../styles/AddMaterial.css";
 
 function AddMaterial() {
   const { user } = useContext(UserContext);
@@ -12,11 +11,13 @@ function AddMaterial() {
 
   useEffect(() => {
     console.log("Fetching data");
-    axios.get(`https://learn-with-jkp-api.vercel.app/api/subject`).then((res) => {
-      // console.log(res.data);
-      setSubjects(res.data);
-      setLoading(false);
-    });
+    axios
+      .get(`https://learn-with-jkp-api.vercel.app/api/subject`)
+      .then((res) => {
+        // console.log(res.data);
+        setSubjects(res.data);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {
@@ -52,21 +53,27 @@ function AddMaterial() {
   };
 
   return (
-    <>
-      <h1>List of Subjects</h1>
+    <div class="flex flex-col justify-center align-center p-10 text-center">
+      <h1 class="text-2xl font-bold">List of Subjects</h1>
+      <br />
       {subjects.map((subject) => {
         return (
           <>
             <p>
-              {subject.name} ~ {subject._id}
+              <strong>{subject.name}</strong> ~ {subject._id}
             </p>
           </>
         );
       })}
-      <form className="add-material-form" onSubmit={handleSubmit}>
+      <div class="pb-10"></div>
+      <form
+        class="flex flex-col align-center justify-center"
+        onSubmit={handleSubmit}
+      >
         <label>
           Title:
           <input
+            class="mx-2 px-2 rounded-md border-2 border-black"
             type="text"
             name="title"
             value={inputs.title}
@@ -76,6 +83,7 @@ function AddMaterial() {
         <label>
           Resource:
           <input
+            class="mx-2 px-2 rounded-md border-2 border-black"
             type="text"
             name="resource"
             value={inputs.resource}
@@ -85,16 +93,21 @@ function AddMaterial() {
         <label>
           Subject ID:
           <input
+            class="mx-2 px-2 rounded-md border-2 border-black"
             type="text"
             name="subject_id"
             value={inputs.subject_id}
             onChange={handleChange}
           />
         </label>
-
-        <button type="submit">Submit</button>
+        <br />
+        <div>
+          <button class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+            Submit
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

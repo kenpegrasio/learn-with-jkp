@@ -1,9 +1,9 @@
-import "../styles/Footer.css";
-
 function Footer() {
   return (
     <>
-      <div className="footer">Jansen Ken Pegrasio ~ 2024</div>
+      <div class="flex align-center justify-center text-white bg-gray-950 py-5">
+        Jansen Ken Pegrasio ~ 2024
+      </div>
     </>
   );
 }

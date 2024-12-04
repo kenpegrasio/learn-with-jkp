@@ -56,9 +56,9 @@ function Login() {
   });
 
   return (
-    <div id="signInButton">
-      <button onClick={login}>Login with Google</button>
-    </div>
+    <button onClick={login} class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+      Login with Google
+    </button>
   );
 }
 

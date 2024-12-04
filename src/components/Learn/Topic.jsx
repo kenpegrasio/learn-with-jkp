@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../UserContextProvider";
 import Navbar from "../navbar";
 import Footer from "../Footer";
-import "../../styles/Topic.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -24,15 +23,19 @@ function Topic() {
 
   useEffect(() => {
     console.log("Fetching Materials");
-    axios.get(`https://learn-with-jkp-api.vercel.app/api/material/${id}`).then((res) => {
-      console.log("Res.data: ", res.data);
-      setMaterials(res.data);
-    });
-    axios.get(`https://learn-with-jkp-api.vercel.app/api/subject/${id}`).then((res) => {
-      console.log("Res.data: ", res.data);
-      setName(res.data.name);
-      setLoading(false);
-    });
+    axios
+      .get(`https://learn-with-jkp-api.vercel.app/api/material/${id}`)
+      .then((res) => {
+        console.log("Res.data: ", res.data);
+        setMaterials(res.data);
+      });
+    axios
+      .get(`https://learn-with-jkp-api.vercel.app/api/subject/${id}`)
+      .then((res) => {
+        console.log("Res.data: ", res.data);
+        setName(res.data.name);
+        setLoading(false);
+      });
   }, []);
 
   if (loading) {
@@ -42,38 +45,48 @@ function Topic() {
   return (
     <>
       <Navbar />
-      <div className="topic">
-        <h1>{name}</h1>
+      <br />
+      <div class="flex justify-center align-center">
         {user.accesstype === "Administrator" ? (
           <Link to="/add-material">
-            <button className="button-18">Add Material</button>
+            <button class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+              Add Material
+            </button>
           </Link>
         ) : (
           <></>
         )}
         {user.accesstype === "Administrator" ? (
           <Link to="/delete-material">
-            <button className="button-18">Delete Material</button>
+            <button class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+              Delete Material
+            </button>
           </Link>
         ) : (
           <></>
         )}
-        <div className="material-list">
-          {materials.map((material) => {
-            return (
-              <div className="material">
+      </div>
+      <br />
+      <h1 class="text-center text-2xl font-bold">{name}</h1>
+      <div class="flex-wrap justify-center align-center">
+        {materials.map((material) => {
+          return (
+            <div class="flex flex-col align-center justify-center text-center m-5">
+              <div class="flex align-center justify-center m-3">
                 <iframe
+                  class="basis-1/2 aspect-video"
                   src={`https://www.youtube.com/embed/${extractYouTubeVideoID(
                     material.resource
                   )}`}
                   frameborder="0"
                   allowfullscreen
                 ></iframe>
-                <p>Video Title: {material.name}</p>
               </div>
-            );
-          })}
-        </div>
+              <p class="font-bold">Video Title:</p>
+              <p>{material.name}</p>
+            </div>
+          );
+        })}
       </div>
       <Footer />
     </>
