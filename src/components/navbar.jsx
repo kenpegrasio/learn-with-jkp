@@ -15,16 +15,13 @@ function Navbar() {
       </div>
 
       <div class="flex flex-col flex-1 items-center justify-end gap-3 md:mr-10 md:w-full md:flex-wrap md:gap-20 md:flex-row">
-        <Link to="/" class="text-white hover:underline">
+        <Link to="/" className="text-white hover:underline">
           <h3>Home</h3>
         </Link>
-        <Link to="/learn" class="text-white hover:underline">
+        <Link to="/learn" className="text-white hover:underline">
           <h3>Learn</h3>
         </Link>
-        <Link to="/about" class="text-white hover:underline">
-          <h3>About Me</h3>
-        </Link>
-        <Link to="/account" class="text-white hover:underline">
+        <Link to="/account" className="text-white hover:underline">
           <h3>Account</h3>
         </Link>
       </div>

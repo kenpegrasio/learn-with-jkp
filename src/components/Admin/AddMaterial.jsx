@@ -43,7 +43,7 @@ function AddMaterial() {
       .then((res) => {
         console.log(res);
         alert("Data saved!");
-        window.location.href = `/learn/${inputs.subject_id}`;
+        window.location.href = `/learn`;
       });
   };
 

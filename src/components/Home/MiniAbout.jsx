@@ -13,11 +13,6 @@ function MiniAbout() {
           I'm really fascinated with the beauty of technology <br />
           and longed to share and contribute to society <br /> <br/>
         </p>
-        <Link to="/about">
-          <button class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
-            About Me
-          </button>
-        </Link>
       </div>
       <div class="hidden bg-tech-background bg-cover bg-center md:w-2/3 md:block"></div>
     </div>
