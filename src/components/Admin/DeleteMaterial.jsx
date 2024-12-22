@@ -33,12 +33,12 @@ function DeleteMaterial() {
   };
 
   return (
-    <>
-      <h1>List of Materials</h1>
+    <div className="text-center pt-5">
+      <h1 className="font-bold text-xl pb-2">List of Materials</h1>
       {materials.map((material) => {
         return (
           <p key={material._id}>
-            {material.name} ~ {material._id}
+            <strong>{material.name}</strong> ~ {material._id}
           </p>
         );
       })}
@@ -50,11 +50,15 @@ function DeleteMaterial() {
             name="id"
             value={inputs.id || ""}
             onChange={handleChange}
+            className="border border-black my-2 rounded-lg p-1"
           />
         </label>
-        <button type="submit">Submit</button>
+        <br />
+        <button className="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110" type="submit">
+          Submit
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 
