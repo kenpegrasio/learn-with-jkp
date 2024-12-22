@@ -11,7 +11,7 @@ function Learn() {
     "673db9fec35410d043d65647": "computerVision",
     "673dba15c35410d043d65649": "arduino",
     "673dd45523150842ad2be2ac": "python",
-    "675c927a0962f5564cc97029": "fastArithmetic"
+    "675c927a0962f5564cc97029": "fastArithmetic",
   };
 
   const extractYouTubeVideoID = (url) => {
@@ -22,6 +22,7 @@ function Learn() {
   };
   const [materials, setMaterials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
   const { user } = useContext(UserContext);
 
   const [checkedValues, setCheckedValues] = useState({
@@ -38,6 +39,17 @@ function Learn() {
       ...prevState,
       [name]: checked,
     }));
+    setPage(1);
+  };
+
+  const handlePage = (event) => {
+    const selectedValue = event.target.value;
+    const parsedValue = parseInt(selectedValue, 10);
+    if (!isNaN(parsedValue)) {
+      setPage(parsedValue);
+    } else {
+      console.log("Invalid input:", selectedValue);
+    }
   };
 
   useEffect(() => {
@@ -45,15 +57,30 @@ function Learn() {
     axios
       .get(`https://learn-with-jkp-api.vercel.app/api/material`)
       .then((res) => {
-        console.log("Res.data: ", res.data);
-        setMaterials(res.data);
+        // console.log("Res.data: ", res.data);
+        let cnt = 4;
+        let filtered = [];
+        for (let idx = 0; idx < res.data.length; idx++) {
+          if (checkedValues[subject_map[res.data[idx].subject_id]]) {
+            filtered.push(
+              Object.assign({}, res.data[idx], { page: Math.floor(cnt / 4) })
+            );
+            cnt++;
+          }
+        }
+        setMaterials(filtered);
       });
     setLoading(false);
-  }, []);
+  }, [checkedValues]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const options = Array.from(
+    { length: Math.ceil(materials.length / 4) },
+    (_, i) => i + 1
+  );
 
   return (
     <>
@@ -121,6 +148,27 @@ function Learn() {
               Fast Arithmetic
             </label>
           </div>
+          <br />
+          <div className="flex flex-col items-center justify-center space-y-2">
+            <label
+              htmlFor="page-select"
+              className="text-sm font-medium text-gray-700"
+            >
+              Select a page:
+            </label>
+            <select
+              id="page-select"
+              className="w-40 p-2 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              value={page} // Controlled select
+              onChange={handlePage}
+            >
+              {options.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </div>
           {user.accesstype === "Administrator" ? (
             <Link to="/add-material">
               <button className="my-3 inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
@@ -147,7 +195,7 @@ function Learn() {
               .filter((material) => {
                 const isChecked =
                   checkedValues[subject_map[material.subject_id]];
-                return isChecked;
+                return isChecked && material.page == page;
               })
               .map((material) => {
                 return (
