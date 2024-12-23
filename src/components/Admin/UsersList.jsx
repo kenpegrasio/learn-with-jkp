@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { UserContext } from "../../UserContextProvider";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
   useEffect(() => {
     axios.get(`https://learn-with-jkp-api.vercel.app/api/user`).then((res) => {
       setUsers(res.data);
@@ -12,6 +14,9 @@ function UsersList() {
   });
   if (loading) {
     return <p>Loading...</p>;
+  }
+  if (user.accesstype !== "Administrator") {
+    return <p>Unauthorized</p>;
   }
   return (
     <>
