@@ -40,6 +40,7 @@ function Learn() {
       [name]: checked,
     }));
     setPage(1);
+    setLoading(true);
   };
 
   const handlePage = (event) => {
@@ -69,8 +70,8 @@ function Learn() {
           }
         }
         setMaterials(filtered);
+        setLoading(false);
       });
-    setLoading(false);
   }, [checkedValues]);
 
   if (loading) {
