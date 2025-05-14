@@ -1,14 +1,13 @@
-import Navbar from "./components/navbar";
 import Footer from "./components/Footer";
 import Subjects from "./components/Subjects";
+import Layout from "./layout";
 
 function App() {
   return (
-    <>
-      <Navbar />
+    <Layout>
       <Subjects />
       <Footer />
-    </>
+    </Layout>
   );
 }
 

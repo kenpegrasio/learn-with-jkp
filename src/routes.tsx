@@ -20,15 +20,16 @@ const routes = [
   },
   {
     path: "add-material",
-    element: <AddMaterial />
+    element: <AddMaterial />,
   },
   {
     path: "delete-material",
-    element: <DeleteMaterial />
+    element: <DeleteMaterial />,
   },
   {
     path: "users-list",
-    element: <UsersList />
-  }
+    element: <UsersList />,
+  },
 ];
+
 export default routes;

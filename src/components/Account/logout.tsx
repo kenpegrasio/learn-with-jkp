@@ -10,10 +10,14 @@ function Logout() {
     console.log("Log out successful");
     sessionStorage.clear();
     setUser({});
+    window.location.reload();
   };
 
   return (
-    <button onClick={handleLogout} class="inline-block justify-center align-center text-center text-white bg-customBlue border border-black rounded-3xl px-5 min-h-10 hover:bg-customWhite hover:text-customBlue hover:scale-110">
+    <button
+      onClick={handleLogout}
+      className="bg-red-600 text-white font-semibold px-6 py-2 rounded-xl transition hover:bg-red-700 hover:scale-105"
+    >
       Logout
     </button>
   );
