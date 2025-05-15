@@ -1,4 +1,3 @@
-import Footer from "../components/Footer";
 import UserInfo from "../components/Account/UserInfo";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Layout from "@/layout";
@@ -23,7 +22,6 @@ const Account: React.FC = () => {
         <main className="p-6">
           <UserInfo />
         </main>
-        <Footer />
       </GoogleOAuthProvider>
     </Layout>
   );

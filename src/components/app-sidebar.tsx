@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Home, BookOpen, User } from "lucide-react";
+import { Home, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -16,11 +16,6 @@ const links = [
     title: "Home",
     icon: Home,
     href: "/",
-  },
-  {
-    title: "Learn",
-    icon: BookOpen,
-    href: "/learn",
   },
   {
     title: "Account",
