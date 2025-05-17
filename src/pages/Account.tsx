@@ -19,9 +19,7 @@ const Account: React.FC = () => {
   return (
     <Layout>
       <GoogleOAuthProvider clientId={clientId}>
-        <main className="p-6">
-          <UserInfo />
-        </main>
+        <UserInfo />
       </GoogleOAuthProvider>
     </Layout>
   );

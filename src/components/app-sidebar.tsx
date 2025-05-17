@@ -26,10 +26,12 @@ const links = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="w-60 bg-zinc-950 text-white border-r border-zinc-800">
+    <Sidebar className="w-60 h-full bg-zinc-950 text-white border-r border-zinc-800 z-50">
       <SidebarContent className="bg-zinc-950 text-white">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-zinc-400">Application</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-zinc-400">
+            Application
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {links.map((link, index) => (

@@ -1,14 +1,16 @@
-import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
-import { AppSidebar } from "./components/app-sidebar";
+  import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
+  import { AppSidebar } from "./components/app-sidebar";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+  export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <AppSidebar />
-      <main>
+      <div className="flex w-screen h-fit">
+        <AppSidebar />
         <SidebarTrigger />
-        {children}
-      </main>
+        <main className="flex-1 flex flex-col items-center">
+          {children}
+        </main>
+      </div>
     </SidebarProvider>
   );
 }

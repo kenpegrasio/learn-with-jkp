@@ -1,10 +1,12 @@
-import Subjects from "./components/Subjects";
+import ShortIntro from "./components/ShortIntro";
+import TopicLists from "./components/TopicLists";
 import Layout from "./layout";
 
 function App() {
   return (
     <Layout>
-      <Subjects />
+      <ShortIntro />
+      <TopicLists />
     </Layout>
   );
 }

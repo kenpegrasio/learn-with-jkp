@@ -32,21 +32,13 @@ const UserInfo: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center bg-customWhite px-4">
+    <div className="flex items-center justify-center min-h-screen bg-customWhite px-4">
       <Card className="w-full max-w-md text-center">
         <CardHeader>
           <CardTitle>User Information</CardTitle>
           <CardDescription>Welcome back, {user.name}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {user.accesstype === "Administrator" && (
-            <Link to="/users-list">
-              <button className="bg-blue-600 text-white font-semibold px-6 py-2 rounded-xl transition mb-2 hover:bg-blue-700 hover:scale-105">
-                Users List
-              </button>
-            </Link>
-          )}
-
           <div className="flex justify-center">
             <img
               src={user.picture}
