@@ -55,14 +55,14 @@ function TopicLists() {
   }
 
   return (
-    <div className="w-3xs md:w-xl mx-auto p-6 bg-gray-50 text-gray-900 pt-3 pb-12">
+    <div className="w-[80%] md:w-[50%] mx-auto p-6 bg-gray-50 text-gray-900 pt-3 pb-12">
       <Accordion type="multiple">
         {topics.map((topic, index) => (
           <AccordionItem key={topic._id} value={`item-${index}`}>
-            <AccordionTrigger className="text-2xl font-bold text-gray-900">
+            <AccordionTrigger className="text-xl md:text-2xl font-bold text-gray-900">
               {topic.title}
             </AccordionTrigger>
-            <AccordionContent className="text-md text-gray-700 mt-2">
+            <AccordionContent className="text-sm md:text-md text-gray-700 mt-2">
               {topic.description && (
                 <p className="mb-4">{topic.description}</p>
               )}
