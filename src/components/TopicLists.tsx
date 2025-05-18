@@ -34,7 +34,9 @@ function TopicLists() {
   useEffect(() => {
     const fetchTopics = async () => {
       try {
-        const res = await axios.get(`https://learn-with-jkp-api.vercel.app/api/topic`);
+        const res = await axios.get(
+          `https://learn-with-jkp-api.vercel.app/api/topic`
+        );
         setTopics(res.data);
       } catch (error) {
         console.error("Error fetching topics:", error);
@@ -62,12 +64,10 @@ function TopicLists() {
             <AccordionTrigger className="text-xl md:text-2xl font-bold text-gray-900">
               {topic.title}
             </AccordionTrigger>
-            <AccordionContent className="text-sm md:text-md text-gray-700 mt-2">
-              {topic.description && (
-                <p className="mb-4">{topic.description}</p>
-              )}
+            <AccordionContent className="text-sm md:text-md text-gray-700">
+              {topic.description && <p className="mb-4">{topic.description}</p>}
               {topic.attachment?.length > 0 && (
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2 mb-4">
                   {topic.attachment.map((file, i) => {
                     const fileName = file.split("/").pop();
                     const isPdf = file.endsWith(".pdf");
@@ -92,6 +92,60 @@ function TopicLists() {
                     );
                   })}
                 </div>
+              )}
+
+              {topic.chapters?.length > 0 && (
+                <Accordion type="multiple">
+                  {topic.chapters.map((chapter, chapterIndex) => (
+                    <AccordionItem
+                      key={chapter._id}
+                      value={`chapter-${chapterIndex}`}
+                    >
+                      <AccordionTrigger className="text-base font-semibold text-gray-800">
+                        {chapter.title}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        {chapter.description && (
+                          <p className="mb-2">{chapter.description}</p>
+                        )}
+                        {chapter.attachment?.length > 0 && (
+                          <div className="grid gap-2 sm:grid-cols-2">
+                            {chapter.attachment.map((file, i) => {
+                              const fileName = file.split("/").pop();
+                              const isPdf = file.endsWith(".pdf");
+                              const isImage =
+                                /\.(jpg|jpeg|png|gif|webp)$/i.test(file);
+                              const isDoc = /\.(doc|docx)$/i.test(file);
+
+                              return (
+                                <a
+                                  key={i}
+                                  href={file}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center p-2 bg-gray-100 rounded-md hover:bg-gray-200 transition"
+                                >
+                                  <span className="mr-2 text-lg">
+                                    {isPdf
+                                      ? "📄"
+                                      : isImage
+                                      ? "🖼️"
+                                      : isDoc
+                                      ? "📝"
+                                      : "📎"}
+                                  </span>
+                                  <span className="truncate text-sm text-gray-800">
+                                    {fileName}
+                                  </span>
+                                </a>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               )}
             </AccordionContent>
           </AccordionItem>
