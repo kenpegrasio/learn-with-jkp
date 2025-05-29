@@ -75,17 +75,23 @@ function TopicLists() {
         {topics.map((topic, index) => (
           <div key={topic._id} className="relative group mb-3s">
             <AccordionItem value={`item-${index}`} className="w-full">
-              <AccordionTrigger className="text-xl md:text-2xl font-bold text-gray-900 pr-10">
+              <AccordionTrigger
+                className={`text-xl md:text-2xl font-bold text-gray-900 ${
+                  accesstype === "Administrator" ? "pr-10" : ""
+                }`}
+              >
                 {topic.title}
               </AccordionTrigger>
 
-              <AccordionContent className="text-sm md:text-md text-gray-700">
+              <AccordionContent
+                className={`text-sm md:text-md text-gray-700`}
+              >
                 {topic.description && (
                   <p className="mb-4">{topic.description}</p>
                 )}
 
                 {topic.attachment?.length > 0 && (
-                  <div className="grid gap-3 sm:grid-cols-2 mb-4">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 mb-4">
                     {topic.attachment.map((file, i) => {
                       const fileName = file.split("/").pop();
                       const isPdf = file.endsWith(".pdf");
@@ -103,7 +109,7 @@ function TopicLists() {
                           href={file}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+                          className="flex items-center p-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition w-[100%]"
                         >
                           <span className="mr-3 text-xl">
                             {isPdf
@@ -128,21 +134,35 @@ function TopicLists() {
                 {topic.chapters?.length > 0 && (
                   <Accordion type="multiple">
                     {topic.chapters.map((chapter, chapterIndex) => (
-                      <div key={chapter._id} className="relative group pl-2">
+                      <div
+                        key={chapter._id}
+                        className="relative group pl-2"
+                      >
                         <AccordionItem
                           value={`chapter-${chapterIndex}`}
                           className="w-full"
                         >
-                          <AccordionTrigger className="text-base font-semibold text-gray-800 pr-10">
+                          <AccordionTrigger
+                            className={`text-base font-semibold text-gray-800 ${
+                              accesstype === "Administrator" ? "pr-10" : ""
+                            } font-bold`}
+                          >
                             {chapter.title}
                           </AccordionTrigger>
+
                           <AccordionContent>
                             {chapter.description && (
-                              <p className="mb-2">{chapter.description}</p>
+                              <p
+                                className={`mb-2 ${
+                                  accesstype === "Administrator" ? "pr-10" : ""
+                                } pr-4 text-justify`}
+                              >
+                                {chapter.description}
+                              </p>
                             )}
 
                             {chapter.attachment?.length > 0 && (
-                              <div className="grid gap-2 sm:grid-cols-2">
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-[90%]">
                                 {chapter.attachment.map((file, i) => {
                                   const fileName = file.split("/").pop();
                                   const isPdf = file.endsWith(".pdf");

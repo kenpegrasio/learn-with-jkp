@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <main className="flex-1 flex flex-col">
           <SidebarTrigger />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center max-w-screen">
             {children}
           </div>
         </main>
