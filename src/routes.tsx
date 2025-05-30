@@ -1,6 +1,7 @@
 import App from "./App";
 import Account from "./pages/Account";
 import ChapterLists from "./pages/ChapterLists";
+import ChapterPage from "./pages/ChapterPage";
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: "/chapters/:topicId",
     element: <ChapterLists />,
+  },
+  {
+    path: "/chapter/:chapterId",
+    element: <ChapterPage />,
   },
 ];
 

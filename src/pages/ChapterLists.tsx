@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
+import Layout from "../layout";
 
 type Chapter = {
   _id: string;
@@ -30,7 +24,7 @@ type Topic = {
 };
 
 function ChapterLists() {
-  const { topicId } = useParams<{ topicId: string }>();
+  const { topicId } = useParams<{ topicId : string }>();
   const [topic, setTopic] = useState<Topic | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -53,34 +47,43 @@ function ChapterLists() {
 
   if (loading) {
     return (
-      <div className="flex justify-center mt-10">
-        <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
-      </div>
+      <Layout>
+        <div className="flex justify-center mt-10">
+          <div className="w-12 h-12 border-4 border-blue-500 border-dashed rounded-full animate-spin"></div>
+        </div>
+      </Layout>
     );
   }
 
   if (!topic) {
-    return <div className="text-center mt-10">Topic not found.</div>;
+    return (
+      <div className="text-center mt-10 text-gray-500">Topic not found.</div>
+    );
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <Card className="shadow-lg">
-        <CardHeader>
-          <CardTitle>{topic.title}</CardTitle>
-          {topic.description && (
-            <CardDescription>{topic.description}</CardDescription>
-          )}
-        </CardHeader>
-        <CardContent>
-          <ul className="list-disc list-inside space-y-2 text-gray-700">
-            {topic.chapters.map((chapter) => (
-              <li key={chapter._id}>{chapter.title}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-    </div>
+    <Layout>
+      <div className="w-[80%] sm:w-[60%] mx-auto py-12 px-6">
+        <h1 className="text-4xl font-bold mb-4">{topic.title}</h1>
+        {topic.description && (
+          <p className="text-lg text-gray-600 mb-8">{topic.description}</p>
+        )}
+
+        <div className="space-y-2">
+          {topic.chapters.map((chapter, index) => (
+            <Link
+              key={chapter._id}
+              to={`/chapter/${chapter._id}`}
+              className="block border-l-4 border-gray-300 pl-4 hover:bg-gray-100 p-3 rounded transition"
+            >
+              <h2 className="text-xl font-medium text-gray-800">
+                Chapter {index + 1} - {chapter.title}
+              </h2>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </Layout>
   );
 }
 
