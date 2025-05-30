@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   Form,
   FormControl,
@@ -13,10 +13,11 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { UserContext } from "@/UserContextProvider";
 
-const loginSchema = z.object({
-  identifier: z.string().min(1, "Email or Username is required"),
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  username: z.string().min(1, "Username is required"),
+  email: z.string().email("Invalid email"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters long")
@@ -27,45 +28,38 @@ const loginSchema = z.object({
     ),
 });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type RegisterFormValues = z.infer<typeof formSchema>;
 
-function LoginButton() {
+function RegisterButton() {
   const [showForm, setShowForm] = useState(false);
-  const { setUser } = useContext(UserContext);
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      identifier: "",
+      name: "",
+      username: "",
+      email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (values: LoginFormValues) => {
+  const onSubmit = async (values: RegisterFormValues) => {
     try {
       const payload = {
-        emailOrUsername: values.identifier,
+        name: values.name,
+        username: values.username,
+        email: values.email,
         password: values.password,
       };
       const res = await axios.post(
-        `https://learn-with-jkp-api.vercel.app/api/user/login`,
+        `https://learn-with-jkp-api.vercel.app/api/user/register`,
         payload
       );
-      const response = await axios.post(
-        "https://learn-with-jkp-api.vercel.app/api/user/userInfo",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${res.data.token}`,
-          },
-        }
-      );
-      console.log(response.data);
-      setUser(response.data);
-      sessionStorage.setItem("user", JSON.stringify(response.data));
+      console.log(res);
+      alert("User succesfully registered");
     } catch (err) {
-      console.error("Failed to login:", err);
-      alert("Failed to login.");
+      console.error("Failed to register:", err);
+      alert("Failed to register. Please try again. ");
     } finally {
       setShowForm(false);
     }
@@ -77,13 +71,13 @@ function LoginButton() {
         onClick={() => setShowForm(true)}
         className="bg-blue-600 hover:bg-blue-700 hover:scale-105"
       >
-        Login
+        Register
       </Button>
 
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-            <h2 className="text-xl font-semibold mb-6 text-center">Login</h2>
+            <h2 className="text-xl font-semibold mb-6 text-center">Register</h2>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -91,14 +85,46 @@ function LoginButton() {
               >
                 <FormField
                   control={form.control}
-                  name="identifier"
+                  name="name"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Email or Username<span className="text-red-500">*</span>
+                        Full Name<span className="text-red-500">*</span>{" "}
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Email or Username" {...field} />
+                        <Input placeholder="Full Name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="username"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Username<span className="text-red-500">*</span>{" "}
+                      </FormLabel>
+                      <FormControl>
+                        <Input placeholder="Username" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        Email<span className="text-red-500">*</span>{" "}
+                      </FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="Email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -111,7 +137,7 @@ function LoginButton() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>
-                        Password<span className="text-red-500">*</span>
+                        Password<span className="text-red-500">*</span>{" "}
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -130,7 +156,7 @@ function LoginButton() {
                     type="submit"
                     className="w-[30%] bg-green-600 hover:bg-green-700"
                   >
-                    Login
+                    Submit
                   </Button>
                   <Button
                     type="button"
@@ -150,4 +176,4 @@ function LoginButton() {
   );
 }
 
-export default LoginButton;
+export default RegisterButton;

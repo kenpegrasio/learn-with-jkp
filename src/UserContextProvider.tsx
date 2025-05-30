@@ -1,15 +1,14 @@
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 
 export interface User {
-  id?: string;
+  _id?: string;
   name?: string;
+  username?: string;
   email?: string;
-  picture?: string;
-  google_id?: string;
-  accesstype?: "Administrator" | "User" | string;
+  accesstype?: string;
   point?: number;
+  __v?: number;
 }
-
 
 interface UserContextType {
   user: User | null;

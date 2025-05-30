@@ -1,8 +1,6 @@
-import Login from "./login";
 import Logout from "./logout";
 import { useContext } from "react";
 import { UserContext } from "../../UserContextProvider";
-import { Link } from "react-router-dom";
 import {
   Card,
   CardHeader,
@@ -11,6 +9,8 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import RegisterButton from "./register";
+import LoginButton from "./login";
 
 const UserInfo: React.FC = () => {
   const { user } = useContext(UserContext);
@@ -24,7 +24,8 @@ const UserInfo: React.FC = () => {
             <CardDescription>Not registered yet</CardDescription>
           </CardHeader>
           <CardContent>
-            <Login />
+            <LoginButton />
+            <RegisterButton />
           </CardContent>
         </Card>
       </div>
@@ -39,28 +40,7 @@ const UserInfo: React.FC = () => {
           <CardDescription>Welcome back, {user.name}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex justify-center">
-            <img
-              src={user.picture}
-              alt="User Profile"
-              className="w-24 h-24 rounded-full border shadow"
-            />
-          </div>
-
-          <div className="text-left space-y-1">
-            <p>
-              <strong>Name:</strong> {user.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Access Type:</strong> {user.accesstype ?? "N/A"}
-            </p>
-            <p>
-              <strong>Points:</strong> {user.point ?? 0}
-            </p>
-          </div>
+          <div>Hello, World</div>
         </CardContent>
         <CardFooter className="flex justify-center">
           <Logout />
