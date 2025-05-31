@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "./components/ui/sidebar";
 import { AppSidebar } from "./components/app-sidebar";
+import { Toaster } from "sonner";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -10,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <SidebarTrigger />
           <div className="flex flex-col items-center max-w-screen">
             {children}
+            <Toaster position="top-right" richColors />
           </div>
         </main>
       </div>
