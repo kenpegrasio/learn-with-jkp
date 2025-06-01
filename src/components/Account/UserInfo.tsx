@@ -22,10 +22,16 @@ const UserInfo: React.FC = () => {
     <div className="flex items-center justify-center h-screen -mt-7 bg-customWhite px-4 w-[90%] md:w-[40%]">
       <Card className="w-full shadow-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Account</CardTitle>
-          <CardDescription>
-            Your account information is shown below.
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold text-center">
+            Account
+          </CardTitle>
+          {user ? (
+            <CardDescription className="text-center">
+              Your account information is shown below.
+            </CardDescription>
+          ) : (
+            <></>
+          )}
         </CardHeader>
 
         {!user ? (
@@ -87,11 +93,19 @@ const UserInfo: React.FC = () => {
               </div>
             </CardContent>
 
-            <CardFooter className="flex justify-center gap-3">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link to="/">View Favourite</Link>
-              </Button>
-
+            <CardFooter className="flex flex-col md:flex-row justify-center gap-3">
+              <div className="flex flex-row gap-3">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Link to={`/account/${user._id}/favourites`}>
+                    View Favourite
+                  </Link>
+                </Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                  <Link to={`/account/${user._id}/completed`}>
+                    View Completed
+                  </Link>
+                </Button>
+              </div>
               <Logout />
             </CardFooter>
           </>

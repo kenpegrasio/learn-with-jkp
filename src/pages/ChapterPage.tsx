@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Layout from "../layout";
 import MarkCompleteButton from "../components/mark-complete-button";
+import { UserContext } from "@/UserContextProvider";
+import { toast } from "sonner";
 type Chapter = {
   _id: string;
   title: string;
@@ -14,9 +16,39 @@ type Chapter = {
 };
 
 function ChapterPage() {
+  const { setUser } = useContext(UserContext);
   const { chapterId } = useParams<{ chapterId: string }>();
   const [chapter, setChapter] = useState<Chapter | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(true);
+  const [chapterLoading, setChapterLoading] = useState(true);
+
+  useEffect(() => {
+    const updateUser = async () => {
+      try {
+        const response = await axios.post(
+          "https://learn-with-jkp-api.vercel.app/api/user/userMarkComplete",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${tokenJson}`,
+            },
+          }
+        );
+        setUser(response.data);
+      } catch (error: any) {
+        toast.error("Unknown error occured");
+      }
+    };
+    const tokenString = sessionStorage.getItem("token");
+    if (tokenString === null) {
+      setUserLoading(false);
+      return;
+    }
+    setUserLoading(true);
+    const tokenJson = JSON.parse(tokenString);
+    updateUser();
+    setUserLoading(false);
+  }, []);
 
   useEffect(() => {
     const fetchChapter = async () => {
@@ -28,14 +60,14 @@ function ChapterPage() {
       } catch (err) {
         console.error("Error fetching chapter:", err);
       } finally {
-        setLoading(false);
+        setChapterLoading(false);
       }
     };
 
     fetchChapter();
   }, [chapterId]);
 
-  if (loading) {
+  if (chapterLoading || userLoading) {
     return (
       <Layout>
         <div className="flex justify-center mt-10">
@@ -48,7 +80,9 @@ function ChapterPage() {
   if (!chapter) {
     return (
       <Layout>
-        <div className="text-center mt-10 text-gray-500">Chapter not found.</div>
+        <div className="text-center mt-10 text-gray-500">
+          Chapter not found.
+        </div>
       </Layout>
     );
   }
