@@ -7,6 +7,8 @@ export interface User {
   email?: string;
   accesstype?: string;
   point?: number;
+  completed_chapters?: string[];
+  favourite_chapters?: string[];
   __v?: number;
 }
 

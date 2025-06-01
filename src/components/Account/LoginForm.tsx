@@ -50,6 +50,7 @@ function LoginForm() {
           password: values.password,
         }
       );
+      sessionStorage.setItem("token", JSON.stringify(res.data.token));
       const response = await axios.post(
         "https://learn-with-jkp-api.vercel.app/api/user/userInfo",
         {},

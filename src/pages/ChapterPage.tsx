@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Layout from "../layout";
-
+import MarkCompleteButton from "../components/mark-complete-button";
 type Chapter = {
   _id: string;
   title: string;
@@ -55,14 +55,14 @@ function ChapterPage() {
 
   return (
     <Layout>
-      <div className="max-w-3xl mx-auto py-12 px-6">
+      <div className="max-w-3xl mx-auto py-12 px-6 relative">
         <h1 className="text-4xl font-bold mb-4">{chapter.title}</h1>
         {chapter.description && (
           <p className="text-lg text-gray-600 mb-6">{chapter.description}</p>
         )}
 
         {chapter.attachment?.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 -mb-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
             {chapter.attachment.map((file, i) => {
               const fileName = file.split("/").pop();
               const isPdf = file.endsWith(".pdf");
@@ -98,6 +98,9 @@ function ChapterPage() {
             })}
           </div>
         )}
+        <div className="flex justify-center">
+          <MarkCompleteButton chapterId={chapter._id} />
+        </div>
       </div>
     </Layout>
   );
